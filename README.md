@@ -60,14 +60,15 @@ Un jugador que se puede mover en las 4 direcciones, con una velocidad determinad
 #### Data
 * this.canvas
 * this.ctx
-* this.playerSize
+* this.playerWidth
+* this.playerHeight
 * this.x
 * this.y
 * this.size
 * this.speed
 * this.directionX
 * this.directionY
-* this.lifeBar
+* this.life
 
 #### Functionality
 
@@ -76,7 +77,7 @@ Un jugador que se puede mover en las 4 direcciones, con una velocidad determinad
 * setDirection
 * checkObstacleHit (cambia la dirección a 0 para que el player no pueda moverse)
 * checkScreen (cambia la dirección a 0 para que el player no se salga del canvas)
-* loseLifeBar (disminuye la vida dependiendo de movimiento o del tiempo - TBD)
+* loseLife (disminuye la vida dependiendo de movimiento o del tiempo - TBD)
 
 ### 5. lifePack.js
 
@@ -84,8 +85,8 @@ Un jugador que se puede mover en las 4 direcciones, con una velocidad determinad
 
 * this.canvas
 * this.ctx
-* this.lifePack
-* this.size
+* this.lifePackWidth
+* this.lifePackHeight
 * this.x
 * this.y
 

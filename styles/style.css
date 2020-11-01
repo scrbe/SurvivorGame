@@ -1,0 +1,47 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 1000px;
+    height: 1000px;
+    padding: 100px;
+    background-color: black;
+}
+#init-screen{
+    background-color: black;
+    padding: 20px;
+    position: relative;
+}
+.intro {
+    text-align: center;
+    color: white;
+}
+
+h1, h3 {
+    padding: 20px;
+}
+
+#init-screen button {
+    font-family: 'Press Start 2P', cursive;
+    border: 2px solid;
+    border-radius: 12px;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    position: absolute;
+}
+
+#game-screen{
+    width: 80%;
+    height: 80%;
+    border: 2px solid white;
+    background-color: white;
+}
+
