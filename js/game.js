@@ -4,31 +4,38 @@ class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.player;
+        this.player = new Player(this.canvas, 100);
         this.isGameOver;
         this.lifeBar;
     }
 
-    startLoop() {
-        this.player = new Player(this.canvas, 100);
-        this.player.drawPlayer();
+    updateGame() {
+        // this.checkCollision();
+        this.updateCanvas();
+        this.clearCanvas();
         this.drawCanvas();
-        // const loop = () => {
-            // Call functions to loop over
+        this.player.directionY = 0;
+        this.player.directionX = 0;
+    }
 
-
-
-        // }
-        // Call loop según condición 
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     drawCanvas() {
-        const background = new Image();
-        background.src = '/SurvivorGame/images/background.png';
-        this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
+        this.player.drawPlayer();
+        // Dibujar walls
+        // Dibujar lifePacks
+    }
+
+    updateCanvas() {
+        this.player.movePlayerX();
+        this.player.movePlayerY();
     }
 
     checkCollision() {
+        this.player.checkScreen();
+        // Verificar que el jugador no se ha chocado con la pared
         
     }
 

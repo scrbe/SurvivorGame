@@ -36,14 +36,11 @@ const main = () => {
 
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
-        // Iniciar funcionalidad juego
-        game.startLoop();
-
-        // Iniciar funcionalidad GameOver
+        game.drawCanvas();
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown
 
-        const updatePlayerPositionX = (event) => {
+        const updatePlayerDirectionX = (event) => {
             if (event.code === 'ArrowRight') {
                 game.player.setDirectionX(1)
                 game.player.movePlayerX()
@@ -53,20 +50,22 @@ const main = () => {
             }
         }
 
-        const updatePlayerPositionY = (event) => {
+        const updatePlayerDirectionY = (event) => {
             if (event.code === 'ArrowUp') {
-                game.player.setDirectionY(1)
-                game.player.movePlayerY()
-            } else if (event.code === 'ArrowDown') {
                 game.player.setDirectionY(-1)
-                game.player.movePlayerY()
+            } else if (event.code === 'ArrowDown') {
+                game.player.setDirectionY(1)
             }
         }
 
         document.addEventListener('keydown', (event) => {
-            updatePlayerPositionX(event);
-            updatePlayerPositionY(event);
+            updatePlayerDirectionX(event);
+            updatePlayerDirectionY(event);
+            game.updateGame();
         });
+        
+        // funcionalidad GameOver
+
     };
 
     const gameOverScreen = () => {
