@@ -45,17 +45,21 @@ const main = () => {
 
         const updatePlayerPositionX = (event) => {
             if (event.code === 'ArrowRight') {
-                game.player.movePlayerX(1)
+                game.player.setDirectionX(1)
+                game.player.movePlayerX()
             } else if (event.code === 'ArrowLeft') {
-                game.player.movePlayerX(-1)
+                game.player.setDirectionX(-1)
+                game.player.movePlayerX()
             }
         }
 
         const updatePlayerPositionY = (event) => {
             if (event.code === 'ArrowUp') {
-                game.player.movePlayerY(1)
+                game.player.setDirectionY(1)
+                game.player.movePlayerY()
             } else if (event.code === 'ArrowDown') {
-                game.player.movePlayerY(-1)
+                game.player.setDirectionY(-1)
+                game.player.movePlayerY()
             }
         }
 

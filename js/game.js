@@ -12,6 +12,7 @@ class Game {
     startLoop() {
         this.player = new Player(this.canvas, 100);
         this.player.drawPlayer();
+        this.drawCanvas();
         // const loop = () => {
             // Call functions to loop over
 
@@ -19,6 +20,12 @@ class Game {
 
         // }
         // Call loop según condición 
+    }
+
+    drawCanvas() {
+        const background = new Image();
+        background.src = '/SurvivorGame/images/background.png';
+        this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     checkCollision() {
