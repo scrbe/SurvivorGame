@@ -34,19 +34,21 @@ const main = () => {
         canvasElement.setAttribute('width', width);
         canvasElement.setAttribute('height', height);
 
+        // Creación de la instancia del objeto coin
+        const coin = new Coin(canvasElement)
+        // Dibujar la coin
+        coin.drawCoin();
+
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
-        game.drawCanvas();
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown
 
         const updatePlayerDirectionX = (event) => {
             if (event.code === 'ArrowRight') {
                 game.player.setDirectionX(1)
-                game.player.movePlayerX()
             } else if (event.code === 'ArrowLeft') {
                 game.player.setDirectionX(-1)
-                game.player.movePlayerX()
             }
         }
 

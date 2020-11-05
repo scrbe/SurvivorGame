@@ -41,7 +41,7 @@ h1, h3 {
 #game-screen{
     width: 80%;
     height: 80%;
-    border: 2px solid white;
+    border: white;
     background-color: white;
 }
 

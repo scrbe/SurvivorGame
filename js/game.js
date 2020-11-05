@@ -4,16 +4,18 @@ class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.player = new Player(this.canvas, 100);
+        this.player = new Player(this.canvas);
+        this.coin = new Coin(this.canvas)
         this.isGameOver;
         this.lifeBar;
     }
 
     updateGame() {
-        // this.checkCollision();
+        this.checkAllCollisions();
         this.updateCanvas();
         this.clearCanvas();
-        this.drawCanvas();
+        this.player.drawPlayer();
+        this.coin.drawCoin();
         this.player.directionY = 0;
         this.player.directionX = 0;
     }
@@ -22,21 +24,14 @@ class Game {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    drawCanvas() {
-        this.player.drawPlayer();
-        // Dibujar walls
-        // Dibujar lifePacks
+    checkAllCollisions() {
+        this.player.checkScreen();
+        this.player.checkElementTouch(this.coin);
     }
 
     updateCanvas() {
         this.player.movePlayerX();
         this.player.movePlayerY();
-    }
-
-    checkCollision() {
-        this.player.checkScreen();
-        // Verificar que el jugador no se ha chocado con la pared
-        
     }
 
     addLife() {
