@@ -9,9 +9,7 @@ class Coin {
 
     drawCoin() {
         const coin = new Image();
-        coin.src = '/SurvivorGame/images/coin.png';
-        this.x = 50;
-        this.y = 50;
+        coin.src = '/SurvivorGame/images/coins no borders.png';
         this.ctx.drawImage(coin, this.x, this.y, this.size, this.size)
     }
 }

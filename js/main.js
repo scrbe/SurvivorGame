@@ -36,7 +36,6 @@ const main = () => {
 
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
-        game.coin.drawCoin();
         game.player.drawPlayer();
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown

@@ -5,25 +5,33 @@ class Game {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.player = new Player(this.canvas);
-        this.coin = new Coin(this.canvas)
+        this.coin = new Coin(this.canvas, 5, 5)
+        this.obstacles = new Obstacles(this.canvas, 750, 10);
         this.coinHolder = [];
+        this.blades = [];
         this.isGameOver;
         this.lifeBar;
     }
 
+    bladeLoop() {
+        
+    }
     updateGame() {
         this.coinHolder.push(this.coin)
         this.checkAllCollisions();
-        this.updateCanvas();
+        this.updatePlayer();
         this.clearCanvas();
         this.drawCanvas();
+        this.obstacles.moveObstacleX();
+        this.obstacles.moveObstacleY();
         this.player.directionY = 0;
         this.player.directionX = 0;
     }
 
     drawCanvas() {
         this.player.drawPlayer()
-        // this.coin.drawCoin()
+        this.coin.drawCoin()
+        this.obstacles.drawObstacles()
     }
 
     clearCanvas() {
@@ -32,18 +40,27 @@ class Game {
 
     checkAllCollisions() {
         this.player.checkScreen();
-        if (this.player.checkElementTouch(coin)) {
-            this.player.score++;
-            this.coinHolder.splice(0, 0);
-
-        }
-        ;
+        this.obstacles.checkScreen();
+        this.coinHolder.forEach((coin) => {
+            if (this.player.checkElementTouch(coin)) {
+                this.player.score++;
+                this.coinHolder.splice(0, 1);
+                const x = Math.random() * this.canvas.width;
+                const y = Math.random() * this.canvas.height;
+                this.coinHolder.push(this.coin, x, y)
+            }
+        });
+        this.blades.forEach((blades) => {
+            if (this.player.checkElementTouch(blades, index)) {
+                this.player.loseLife();
+                this.blades.splice(index, 1);
+            }
+        })
     }
 
-    updateCanvas() {
+    updatePlayer() {
         this.player.movePlayerX();
         this.player.movePlayerY();
-        
     }
 
     addLife() {

@@ -9,14 +9,15 @@ body {
     justify-content: center;
     width: 1000px;
     height: 1000px;
-    padding: 100px;
-    background-color: black;
+    background-color: white;
 }
+
 #init-screen{
     background-color: black;
     padding: 20px;
     position: relative;
 }
+
 .intro {
     text-align: center;
     color: white;
@@ -39,9 +40,9 @@ h1, h3 {
 }
 
 #game-screen{
-    width: 80%;
-    height: 80%;
-    border: white;
+    width: 800px;
+    height: 800px;
     background-color: white;
+    border: 1px solid black;
 }
 

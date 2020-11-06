@@ -12,6 +12,7 @@ class Player {
         this.directionX = 0;
         this.directionY = 0;
         this.score = 0;
+        this.lifes = 3;
     }
 
     setDirectionX(directionX) {
@@ -39,22 +40,23 @@ class Player {
     }
 
     checkScreen() {
-        if (this.x - this.playerWidth / 2 <= 0) {
+        if (this.x<= 0) {
             this.directionX = 1;
-        } else if (this.x + this.playerWidth / 2 >= this.canvas.width) {
+        } else if (this.x + this.playerWidth >= this.canvas.width) {
             this.directionX = -1;
-        } else if (this.y + this.playerHeight / 2 >= this.canvas.height) {
+        } else if (this.y + this.playerHeight>= this.canvas.height) {
             this.directionY = -1;
-        } else if (this.y - this.playerHeight / 2 <= 0) {
+        } else if (this.y<= 0) {
             this.directionY = 1;
+
         }
     }
     
     checkElementTouch(element) {
-        const collideRight = this.x + this.width / 2 > element.x - element.size / 2;
-        const collideBottom = this.y + this.height / 2 < element.y - element.size / 2;
-        const collideLeft = this.x - this.width / 2 < element.x + element.size / 2;
-        const collideTop = this.y - this.height / 2 < element.y + element.height / 2;
+        const collideRight = this.x + this.width > element.x;
+        const collideBottom = this.y + this.height > element.y;
+        const collideLeft = this.x < element.x + element.size;
+        const collideTop = this.y < element.y + element.size;
 
         if (collideRight && collideLeft && collideTop && collideBottom) {
             return true;
@@ -65,6 +67,6 @@ class Player {
     
 
     loseLife() {
-        
+        this.lifes--;
     }
 }
