@@ -4,13 +4,14 @@ class Player {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.playerHeight = 50;
+        this.playerHeight = 55;
         this.playerWidth = 50;
         this.x = this.canvas.width/2 - 30;
         this.y = this.canvas.height/2 - 10;
         this.speed = 20;
         this.directionX = 0;
         this.directionY = 0;
+        this.score = 0;
     }
 
     setDirectionX(directionX) {
@@ -32,7 +33,9 @@ class Player {
     drawPlayer() {
         const player = new Image();
         player.src = '/SurvivorGame/images/iconR2D2.png';
-        player.addEventListener('load',this.ctx.drawImage(player, this.x, this.y, this.playerWidth, this.playerHeight));
+        player.addEventListener('load', () => {
+            this.ctx.drawImage(player, this.x, this.y, this.playerWidth, this.playerHeight)
+        });
     }
 
     checkScreen() {

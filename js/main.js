@@ -12,7 +12,7 @@ const main = () => {
         buildDOM(`
         <section id='init-screen'>
         <h1 class='intro'>Survivor Game</h1>
-        <h3 class='intro'>Exit the maze before your lifebar runs out.</h3>
+        <h3 class='intro'>Get as many coins as you can!</h3>
         <button>Start Game!</button>
         </section>
         `);
@@ -34,28 +34,25 @@ const main = () => {
         canvasElement.setAttribute('width', width);
         canvasElement.setAttribute('height', height);
 
-        // Creación de la instancia del objeto coin
-        const coin = new Coin(canvasElement)
-        // Dibujar la coin
-        coin.drawCoin();
-
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
+        game.coin.drawCoin();
+        game.player.drawPlayer();
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown
 
         const updatePlayerDirectionX = (event) => {
-            if (event.code === 'ArrowRight') {
+            if (event.code === 'KeyD') {
                 game.player.setDirectionX(1)
-            } else if (event.code === 'ArrowLeft') {
+            } else if (event.code === 'KeyA') {
                 game.player.setDirectionX(-1)
             }
         }
 
         const updatePlayerDirectionY = (event) => {
-            if (event.code === 'ArrowUp') {
+            if (event.code === 'KeyW') {
                 game.player.setDirectionY(-1)
-            } else if (event.code === 'ArrowDown') {
+            } else if (event.code === 'KeyS') {
                 game.player.setDirectionY(1)
             }
         }

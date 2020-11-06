@@ -6,18 +6,24 @@ class Game {
         this.ctx = this.canvas.getContext('2d');
         this.player = new Player(this.canvas);
         this.coin = new Coin(this.canvas)
+        this.coinHolder = [];
         this.isGameOver;
         this.lifeBar;
     }
 
     updateGame() {
+        this.coinHolder.push(this.coin)
         this.checkAllCollisions();
         this.updateCanvas();
         this.clearCanvas();
-        this.player.drawPlayer();
-        this.coin.drawCoin();
+        this.drawCanvas();
         this.player.directionY = 0;
         this.player.directionX = 0;
+    }
+
+    drawCanvas() {
+        this.player.drawPlayer()
+        // this.coin.drawCoin()
     }
 
     clearCanvas() {
@@ -26,12 +32,18 @@ class Game {
 
     checkAllCollisions() {
         this.player.checkScreen();
-        this.player.checkElementTouch(this.coin);
+        if (this.player.checkElementTouch(coin)) {
+            this.player.score++;
+            this.coinHolder.splice(0, 0);
+
+        }
+        ;
     }
 
     updateCanvas() {
         this.player.movePlayerX();
         this.player.movePlayerY();
+        
     }
 
     addLife() {
