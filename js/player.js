@@ -4,8 +4,8 @@ class Player {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.playerHeight = 55;
-        this.playerWidth = 50;
+        this.playerHeight = 60;
+        this.playerWidth = 55;
         this.x = this.canvas.width/2 - 30;
         this.y = this.canvas.height/2 - 10;
         this.speed = 20;
@@ -51,16 +51,14 @@ class Player {
         }
     }
     
-    checkElementTouch(element, index) {
-        const collideRight = this.x + this.width > element.x;
-        const collideBottom = this.y + this.height > element.y;
+    checkElementTouch(element) {
+        const collideRight = this.x + this.playerWidth > element.x;
+        const collideBottom = this.y + this.playerHeight > element.y;
         const collideLeft = this.x < element.x + element.size;
         const collideTop = this.y < element.y + element.size;
 
         if (collideRight && collideLeft && collideTop && collideBottom) {
-            console.log('touched')
             return true;
-            
           }
           return false;
     }

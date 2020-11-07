@@ -2,7 +2,7 @@ class Coin {
     constructor(canvas,x,y) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.size = 25;
+        this.size = 35;
         this.x = x;
         this.y = y;
     }

@@ -5,48 +5,22 @@ class Game {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.player = new Player(this.canvas);
-        this.coin = new Coin(this.canvas, 5, 5)
+        this.coin = new Coin(this.canvas, 50, 50)
+        this.obstacleHolder = [];
         this.obstacles = new Obstacles(this.canvas, 750, 10);
-        this.coinHolder = [];
-        this.blades = [];
         this.isGameOver = false;
         this.lifeBar;
-        this.coinTouch = false;
-    }
-
-    bladeLoop() {
-        const loop = () => {
-            
-        // si el player toca una moneda, que se genere un nuevo blade
-            if (this.coinTouch = true) {
-                this.blades.push(new Obstacles(this.canvas, this.coin.x, this.coin.y))
-                this.checkAllCollisions()
-                // this.obstacles.moveObstacleX();
-                // this.obstacles.moveObstacleY();
-                // this.obstacles.drawObstacles();
-                this.clearCanvas()
-                this.drawCanvas()
-    
-                if (!this.isGameOver) {
-                    window.requestAnimationFrame(loop);
-                    this.score++;
-                };
-            }
-            this.coinTouch = false;
-        }
-
-        window.requestAnimationFrame(loop);
     }
 
     updateGame() {
-        this.coinHolder.push(this.coin)
         this.checkAllCollisions();
         this.updatePlayer();
         this.clearCanvas();
         this.drawCanvas();
+        this.coinTouch();
+        this.bladeCollision();
         // temporarily moving obstacles here, but the movement needs to be based on a frame loop not on a keypress
-        this.obstacles.moveObstacleX();
-        this.obstacles.moveObstacleY();
+        this.updateObstacles();
         this.player.directionY = 0;
         this.player.directionX = 0;
     }
@@ -54,9 +28,9 @@ class Game {
     drawCanvas() {
         this.player.drawPlayer()
         this.coin.drawCoin()
-        this.coinHolder.push(new Coin(this.canvas, 100, 100))
-        // temporarily drawing the obstacle here, but it needs to be drawn when a coin is touched.
-        this.obstacles.drawObstacles() 
+        this.obstacleHolder.forEach((blade) => {
+            blade.drawObstacles();
+        })
     }
 
     clearCanvas() {
@@ -65,36 +39,74 @@ class Game {
 
     checkAllCollisions() {
         this.player.checkScreen();
-        this.obstacles.checkScreen();
-        this.coinTouch();
+        this.obstacleHolder.forEach((blade) => {
+            blade.checkScreen();
+        })
         this.bladeCollision();
     }
 
     coinTouch() {
-        this.coinHolder.forEach((coin) => {
-            if (this.player.checkElementTouch(coin, 0)) {
-                this.player.score++;
-                console.log(this.player.score);
-                this.coinTouch = true;
-                this.coinHolder.splice(index, 1);
-                const x = Math.random() * this.canvas.width;
-                const y = Math.random() * this.canvas.height;
-                this.coinHolder.push(this.coin, x, y)
-            }
-        });
+        if (this.player.checkElementTouch(this.coin)) {
+            this.player.score++
+            console.log(this.player.score);
+            const x = Math.random() * this.canvas.width;
+            const y = Math.random() * this.canvas.height;
+            this.coin = new Coin(this.canvas, x, y)
+            this.obstacleHolder.push(new Obstacles(this.canvas, x, y))
+            this.obstacles = new Obstacles(this.canvas, x, y);
+        }        
     }
 
     bladeCollision() {
-        this.blades.forEach((blade) => {
-            if (this.player.checkElementTouch(blade, index)) {
-                this.player.loseLife();
-                this.blades.splice(index, 1);
+        this.obstacleHolder.forEach((blade) => {
+            if (this.player.checkElementTouch(blade)) {
+                console.log('game over')
+                this.isGameOver = true;
             }
         })
+        
     }
 
     updatePlayer() {
         this.player.movePlayerX();
         this.player.movePlayerY();
     }
+
+    updateObstacles() {
+        this.obstacleHolder.forEach((blade) => {
+            blade.moveObstacleX();
+            blade.moveObstacleY();
+        })
+    }
+
+    // bladeLoop() {
+    //     const loop = () => {
+    //     // si el player toca una moneda, que se genere un nuevo blade
+    //         if (a=a) {
+    //             this.obstacleHolder.push(new Obstacles(this.canvas, this.coin.x, this.coin.y));
+    //         }
+
+    //         this.obstacleHolder.forEach(() => {
+    //             this.obstacles.moveObstacleX();
+    //             this.obstacles.moveObstacleY();
+    //         })
+
+    //         this.clearCanvas()
+    //         this.drawCanvas()
+
+    //         this.obstacleHolder.push(this.obstacles)
+    //         this.obstacleHolder.forEach(() => {
+    //             this.obstacles.drawObstacles();
+    //         })
+    //         console.log(this.obstacleHolder)
+    //         console.log(this.obstacles)
+                
+    //         if (!this.isGameOver) {
+    //             window.requestAnimationFrame(loop);
+    //             this.score++;
+    //         };
+    //     }
+
+    //     window.requestAnimationFrame(loop);
+    // }
 }
