@@ -12,7 +12,6 @@ class Player {
         this.directionX = 0;
         this.directionY = 0;
         this.score = 0;
-        this.lifes = 3;
     }
 
     setDirectionX(directionX) {
@@ -52,21 +51,17 @@ class Player {
         }
     }
     
-    checkElementTouch(element) {
+    checkElementTouch(element, index) {
         const collideRight = this.x + this.width > element.x;
         const collideBottom = this.y + this.height > element.y;
         const collideLeft = this.x < element.x + element.size;
         const collideTop = this.y < element.y + element.size;
 
         if (collideRight && collideLeft && collideTop && collideBottom) {
+            console.log('touched')
             return true;
+            
           }
           return false;
-    }
-
-    
-
-    loseLife() {
-        this.lifes--;
     }
 }

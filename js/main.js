@@ -61,25 +61,24 @@ const main = () => {
             updatePlayerDirectionY(event);
             game.updateGame();
         });
+
+        const gameOverScreen = () => {
+            buildDOM(`
+                <section id="game-over">
+                    <h1>Game Over!</h1>
+                    <button>Restart</button>
+                </section>
+            `);
+            const restartButton = document.querySelector('button');
+            restartButton.addEventListener('click', buildGameScreen);
+        };
         
-        // funcionalidad GameOver
-
+        if (game.isGameOver) {
+            gameOverScreen();
+        }
     };
 
-    const gameOverScreen = () => {
-        buildDOM(`
-            <section id="game-over">
-                <h1>Game Over Screen</h1>
-                <button>Restart</button>
-            </section>
-        `);
-        const restartButton = document.querySelector('button');
-        restartButton.addEventListener('click', buildGameScreen);
-    };
-
-    // if (player.life === 0) {
-    //     gameOverScreen();
-    // }
+    
 
     buildInitScreen();
 };
