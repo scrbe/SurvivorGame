@@ -4,7 +4,7 @@ class Obstacles {
     constructor(canvas, x, y) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.size= 40
+        this.size = 75;
         this.x = x;
         this.y = y;
         this.speed = 10;
@@ -14,7 +14,7 @@ class Obstacles {
 
     drawObstacles() {
         const obstacle = new Image();
-        obstacle.src = '/SurvivorGame/images/saw blade.png';
+        obstacle.src = '/SurvivorGame/images/ninjastar1.png';
         obstacle.addEventListener('load',this.ctx.drawImage(obstacle, this.x, this.y, this.size, this.size));
     }
 

@@ -4,8 +4,8 @@ class Player {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.playerHeight = 60;
-        this.playerWidth = 55;
+        this.playerHeight = 80;
+        this.playerWidth = 75;
         this.x = this.canvas.width/2 - 30;
         this.y = this.canvas.height/2 - 10;
         this.speed = 20;
@@ -32,7 +32,7 @@ class Player {
 
     drawPlayer() {
         const player = new Image();
-        player.src = '/SurvivorGame/images/iconR2D2.png';
+        player.src = '/SurvivorGame/images/ninja2.png';
         player.addEventListener('load', () => {
             this.ctx.drawImage(player, this.x, this.y, this.playerWidth, this.playerHeight)
         });

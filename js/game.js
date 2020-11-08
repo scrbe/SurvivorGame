@@ -16,6 +16,7 @@ class Game {
         this.checkAllCollisions();
         this.updatePlayer();
         this.clearCanvas();
+        this.drawBackground();
         this.drawCanvas();
         this.coinTouch();
         this.bladeCollision();
@@ -31,6 +32,12 @@ class Game {
         this.obstacleHolder.forEach((blade) => {
             blade.drawObstacles();
         })
+    }
+
+    drawBackground() {
+        const background = new Image();
+        background.src = '/SurvivorGame/images/bamboo1.jpg';
+        this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     clearCanvas() {
@@ -49,7 +56,7 @@ class Game {
         if (this.player.checkElementTouch(this.coin)) {
             this.player.score++
             console.log(this.player.score);
-            const x = Math.random() * this.canvas.width;
+            const x = Math.random() * this.canvas.width - 10;
             const y = Math.random() * this.canvas.height;
             this.coin = new Coin(this.canvas, x, y)
             this.obstacleHolder.push(new Obstacles(this.canvas, x, y))
@@ -60,11 +67,9 @@ class Game {
     bladeCollision() {
         this.obstacleHolder.forEach((blade) => {
             if (this.player.checkElementTouch(blade)) {
-                console.log('game over')
-                this.isGameOver = true;
+                this.onGameOver();
             }
         })
-        
     }
 
     updatePlayer() {
@@ -78,6 +83,15 @@ class Game {
             blade.moveObstacleY();
         })
     }
+
+    gameOverCallback(callback) {
+        this.onGameOver = callback;
+        this.updateGame();
+        this.obstacleHolder = []
+        this.player.score = 0;
+        console.log(this.obstacleHolder)
+      }
+
 
     // bladeLoop() {
     //     const loop = () => {

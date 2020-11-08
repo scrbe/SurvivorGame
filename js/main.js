@@ -10,9 +10,10 @@ const main = () => {
     // Función para construir Pantalla de inicialización del juego
     const buildInitScreen = () => {
         buildDOM(`
-        <section id='init-screen'>
+        <section class='init-screen'>
         <h1 class='intro'>Survivor Game</h1>
-        <h3 class='intro'>Get as many coins as you can!</h3>
+        <img src = '/SurvivorGame/images/shogun.png'>
+        <h3 class='intro'>Get me as many coins as you can!</h3>
         <button>Start Game!</button>
         </section>
         `);
@@ -24,7 +25,7 @@ const main = () => {
     const buildGameScreen = () => {
         buildDOM(`
         <section id='game-screen'>
-            <canvas></canvas>
+            <canvas id='canvas'></canvas>
         </section>
         `);
 
@@ -36,7 +37,7 @@ const main = () => {
 
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
-        game.player.drawPlayer();
+        game.gameOverCallback(gameOverScreen)
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown
 
@@ -61,24 +62,21 @@ const main = () => {
             updatePlayerDirectionY(event);
             game.updateGame();
         });
-
-        const gameOverScreen = () => {
-            buildDOM(`
-                <section id="game-over">
-                    <h1>Game Over!</h1>
-                    <button>Restart</button>
-                </section>
-            `);
-            const restartButton = document.querySelector('button');
-            restartButton.addEventListener('click', buildGameScreen);
-        };
-        
-        if (game.isGameOver) {
-            gameOverScreen();
-        }
     };
 
-    
+    const gameOverScreen = () => {
+        buildDOM(`
+            <section class='init-screen'>
+                <h1>Game Over!</h1>
+                <img src = '/SurvivorGame/images/shogun.png'>
+                <h3 class='intro'>You have disappointed me...</h3>
+                <h3 class='intro'>Score:/h3>
+                <button>Restart</button>
+            </section>
+        `);
+        const restartButton = document.querySelector('button');
+        restartButton.addEventListener('click', buildGameScreen);
+    };
 
     buildInitScreen();
 };
