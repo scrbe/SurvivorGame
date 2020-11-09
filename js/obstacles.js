@@ -7,7 +7,7 @@ class Obstacles {
         this.size = 75;
         this.x = x;
         this.y = y;
-        this.speed = 10;
+        this.speed = 15;
         this.directionX = 1;
         this.directionY = 1;
     }

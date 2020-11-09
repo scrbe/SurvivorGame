@@ -4,11 +4,11 @@ class Player {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.playerHeight = 80;
-        this.playerWidth = 75;
+        this.playerHeight = 100;
+        this.playerWidth = 85;
         this.x = this.canvas.width/2 - 30;
         this.y = this.canvas.height/2 - 10;
-        this.speed = 20;
+        this.speed = 25;
         this.directionX = 0;
         this.directionY = 0;
         this.score = 0;

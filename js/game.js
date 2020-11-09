@@ -9,7 +9,8 @@ class Game {
         this.obstacleHolder = [];
         this.obstacles = new Obstacles(this.canvas, 750, 10);
         this.isGameOver = false;
-        this.lifeBar;
+        this.coinSound = document.getElementById('coin-sound');
+        this.gameOverSound = document.getElementById('game-over-sound')
     }
 
     updateGame() {
@@ -20,7 +21,6 @@ class Game {
         this.drawCanvas();
         this.coinTouch();
         this.bladeCollision();
-        // temporarily moving obstacles here, but the movement needs to be based on a frame loop not on a keypress
         this.updateObstacles();
         this.player.directionY = 0;
         this.player.directionX = 0;
@@ -54,10 +54,11 @@ class Game {
 
     coinTouch() {
         if (this.player.checkElementTouch(this.coin)) {
+            this.coinSound.play();
             this.player.score++
             console.log(this.player.score);
-            const x = Math.random() * this.canvas.width - 10;
-            const y = Math.random() * this.canvas.height;
+            const x = Math.random() * this.canvas.width - 20;
+            const y = Math.random() * this.canvas.height - 20;
             this.coin = new Coin(this.canvas, x, y)
             this.obstacleHolder.push(new Obstacles(this.canvas, x, y))
             this.obstacles = new Obstacles(this.canvas, x, y);
@@ -67,6 +68,9 @@ class Game {
     bladeCollision() {
         this.obstacleHolder.forEach((blade) => {
             if (this.player.checkElementTouch(blade)) {
+                this.coinSound.pause();
+                this.gameOverSound.play();
+                this.coinSound.currentTime = 0;
                 this.onGameOver();
             }
         })
@@ -90,7 +94,7 @@ class Game {
         this.obstacleHolder = []
         this.player.score = 0;
         console.log(this.obstacleHolder)
-      }
+    }
 
 
     // bladeLoop() {

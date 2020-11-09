@@ -27,6 +27,7 @@ const main = () => {
         <section id='game-screen'>
             <canvas id='canvas'></canvas>
         </section>
+        <div id="score"></div>
         `);
 
         const width = document.querySelector('#game-screen').offsetWidth;
@@ -81,4 +82,12 @@ const main = () => {
     buildInitScreen();
 };
 
+function backgroundSound() {
+    const background = document.getElementById('background-sound');
+    background.play();
+}
+
 window.addEventListener('load', main)
+window.addEventListener('load', () => {
+    setTimeout(backgroundSound, 500)
+})
