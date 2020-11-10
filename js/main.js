@@ -13,7 +13,7 @@ const main = () => {
         <section class='init-screen'>
         <h1 class='intro'>Survivor Game</h1>
         <img src = '/SurvivorGame/images/shogun.png'>
-        <h3 class='intro'>Get me as many coins as you can!</h3>
+        <h3 class='intro'>Get me as many coins as you can Ninja!</h3>
         <button>Start Game!</button>
         </section>
         `);
@@ -26,8 +26,8 @@ const main = () => {
         buildDOM(`
         <section id='game-screen'>
             <canvas id='canvas'></canvas>
+            <div class="score">Your Ninja Score is : 0</div>
         </section>
-        <div id="score"></div>
         `);
 
         const width = document.querySelector('#game-screen').offsetWidth;
@@ -38,10 +38,11 @@ const main = () => {
 
         // Creación de la instancia del objeto game
         const game = new Game(canvasElement)
+
+        // Funcionalidad game over
         game.gameOverCallback(gameOverScreen)
 
         // Añadir función movimiento según arrows del teclado y eventListener keydown
-
         const updatePlayerDirectionX = (event) => {
             if (event.code === 'KeyD') {
                 game.player.setDirectionX(1)
@@ -70,8 +71,8 @@ const main = () => {
             <section class='init-screen'>
                 <h1>Game Over!</h1>
                 <img src = '/SurvivorGame/images/shogun.png'>
-                <h3 class='intro'>You have disappointed me...</h3>
-                <h3 class='intro'>Score:/h3>
+                <h3 class='intro'>You have disappointed me Ninja...</h3>
+                <h3 class='score'>Your Ninja Score is:</h3>
                 <button>Restart</button>
             </section>
         `);
@@ -88,6 +89,6 @@ function backgroundSound() {
 }
 
 window.addEventListener('load', main)
-window.addEventListener('load', () => {
-    setTimeout(backgroundSound, 500)
-})
+setInterval(() => {
+    backgroundSound();
+},1000)

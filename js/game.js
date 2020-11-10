@@ -11,6 +11,9 @@ class Game {
         this.isGameOver = false;
         this.coinSound = document.getElementById('coin-sound');
         this.gameOverSound = document.getElementById('game-over-sound')
+        this.backgroundImage = new Image();
+        this.backgroundImage.src = '/SurvivorGame/images/bamboo1.jpg';
+        
     }
 
     updateGame() {
@@ -35,9 +38,7 @@ class Game {
     }
 
     drawBackground() {
-        const background = new Image();
-        background.src = '/SurvivorGame/images/bamboo1.jpg';
-        this.ctx.drawImage(background, 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     clearCanvas() {
@@ -55,10 +56,11 @@ class Game {
     coinTouch() {
         if (this.player.checkElementTouch(this.coin)) {
             this.coinSound.play();
-            this.player.score++
-            console.log(this.player.score);
-            const x = Math.random() * this.canvas.width - 20;
-            const y = Math.random() * this.canvas.height - 20;
+            this.player.score++;
+            this.updateScore();
+            console.log(this.obstacleHolder)
+            const x = Math.random() * (this.canvas.width - this.coin.size);
+            const y = Math.random() * (this.canvas.height - this.coin.size);
             this.coin = new Coin(this.canvas, x, y)
             this.obstacleHolder.push(new Obstacles(this.canvas, x, y))
             this.obstacles = new Obstacles(this.canvas, x, y);
@@ -72,6 +74,10 @@ class Game {
                 this.gameOverSound.play();
                 this.coinSound.currentTime = 0;
                 this.onGameOver();
+                this.updateScore();
+                this.obstacleHolder = [];
+                this.player.score = 0;
+                console.log('touch', this)
             }
         })
     }
@@ -88,14 +94,14 @@ class Game {
         })
     }
 
-    gameOverCallback(callback) {
-        this.onGameOver = callback;
-        this.updateGame();
-        this.obstacleHolder = []
-        this.player.score = 0;
-        console.log(this.obstacleHolder)
+    updateScore() {
+        const scoreElement = document.querySelector('.score');
+        scoreElement.innerHTML = `Your Ninja Score is : ${this.player.score}`;
     }
 
+    gameOverCallback(callback) {
+        this.onGameOver = callback;
+    }
 
     // bladeLoop() {
     //     const loop = () => {

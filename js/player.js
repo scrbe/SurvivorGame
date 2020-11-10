@@ -32,7 +32,12 @@ class Player {
 
     drawPlayer() {
         const player = new Image();
-        player.src = '/SurvivorGame/images/ninja2.png';
+        if (this.directionX === 1 || this.directionX === 0) {
+            player.src = '/SurvivorGame/images/ninjaRight.png';
+        } else if (this.directionX === -1) {
+            player.src = '/SurvivorGame/images/ninjaLeft.png';
+        }
+        
         player.addEventListener('load', () => {
             this.ctx.drawImage(player, this.x, this.y, this.playerWidth, this.playerHeight)
         });
