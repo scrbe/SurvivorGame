@@ -8,21 +8,26 @@ const main = () => {
     }
 
     // Función para construir Pantalla de inicialización del juego
+    // <h2 class='intro'>What's your name Ninja?</h2>
+    //     <label for="name"></label>
+    //     <input type="text" id='name'></input>
     const buildInitScreen = () => {
         buildDOM(`
         <section class='init-screen'>
         <h1 class='intro'>Survivor Game</h1>
         <img src = '/SurvivorGame/images/shogun.png'>
-        <h3 class='intro'>Get me as many coins as you can Ninja!</h3>
+        <h3 class='intro'>Get me as many coins as you can !</h3>
         <button>Start Game!</button>
         </section>
         `);
+
         const startButton = document.querySelector('button');
+        const nameInput = document.getElementById("name");
         startButton.addEventListener('click', buildGameScreen)
     };
 
     // Función para construir la pantalla del juego
-    const buildGameScreen = () => {
+    const buildGameScreen = (name) => {
         buildDOM(`
         <section id='game-screen'>
             <canvas id='canvas'></canvas>
